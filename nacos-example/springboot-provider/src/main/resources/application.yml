@@ -1,0 +1,7 @@
+server:
+  port: 8001
+
+nacos:
+  addr: localhost:8848
+  registerIp: 192.168.22.196
+  serviceName: sp-provider
