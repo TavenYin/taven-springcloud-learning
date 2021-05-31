@@ -26,3 +26,6 @@
 /nacos-example/java-sdk/target
 /nacos-example/springboot-discoveryer/target
 /nacos-example/springboot-provider/target
+
+/springcloud-alibaba-nacos/nacos-discovery/target
+/springcloud-alibaba-nacos/nacos-provider/target
