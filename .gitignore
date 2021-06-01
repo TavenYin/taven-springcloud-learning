@@ -29,3 +29,5 @@
 
 /springcloud-alibaba-nacos/nacos-discovery/target
 /springcloud-alibaba-nacos/nacos-provider/target
+
+/sentinel-example/target
