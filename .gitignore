@@ -31,3 +31,5 @@
 /springcloud-alibaba-nacos/nacos-provider/target
 
 /sentinel-example/target
+
+/springcloud-gateway-guides/target
