@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: gateway-demo
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yaml
+        group: gateway-demo
+
+route:
+  dataId: gateway-route
