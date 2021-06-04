@@ -11,6 +11,7 @@
     <modules>
         <module>nacos-discovery</module>
         <module>nacos-provider</module>
+        <module>nacos-config</module>
     </modules>
 
     <properties>
@@ -36,9 +37,15 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!-- springcloud alibaba 这几个依赖，Spring 和 alibaba版本不同 -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                <version>0.2.2.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
                 <version>0.2.2.RELEASE</version>
             </dependency>
             <dependency>
