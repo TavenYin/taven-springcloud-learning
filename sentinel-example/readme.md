@@ -22,6 +22,25 @@ java -Dserver.port=8080 -Dcsp.sentinel.dashboard.server=localhost:8080 -Dproject
 
 2. 去控制台 -> 集群流控 -> 新增 Token Server
 选择Server 以及Client 提交
+
+### Nacos 配置文件
+```json
+// dataId = appA-flow-rules
+// Group = SENTINEL_GROUP
+[
+  {
+    "resource" : "cluster-resource",     // 限流的资源名称
+    "grade" : 1,                         // 限流模式为：qps
+    "count" : 10,                        // 阈值为：10
+    "clusterMode" :  true,               // 集群模式为：true
+    "clusterConfig" : {
+      "flowId" : 111,                  // 全局唯一id
+      "thresholdType" : 1,             // 阈值模式伪：全局阈值
+      "fallbackToLocalWhenFail" : true // 在 client 连接失败或通信失败时，是否退化到本地的限流模式
+    }
+  }
+]
+```
    
 #### 小记
 默认情况下每个Sentinel 节点启动后 状态为 `—1` （既不是client 也不是Server）
