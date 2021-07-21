@@ -48,7 +48,7 @@ public class MyLoadBalancerClientFilter extends LoadBalancerClientFilter {
             String serviceId = getServiceId(exchange);
             BalanceRequestInfo balanceRequestInfo = new BalanceRequestInfo();
             balanceRequestInfo.setServiceId(serviceId);
-            balanceRequestInfo.setNacosServiceCluster(
+            balanceRequestInfo.setTargetCluster(
                     exchange
                             .getRequest()
                             .getHeaders()

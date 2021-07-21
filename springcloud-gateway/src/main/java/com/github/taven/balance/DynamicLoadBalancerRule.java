@@ -7,8 +7,8 @@ import com.netflix.client.config.IClientConfig;
 import com.netflix.loadbalancer.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.ribbon.RibbonClientConfiguration;
+import org.springframework.cloud.netflix.ribbon.SpringClientFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.web.server.ServerWebExchange;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +25,8 @@ import java.util.List;
  */
 @Component
 public class DynamicLoadBalancerRule extends AbstractLoadBalancerRule {
+    @Autowired
+    private SpringClientFactory springClientFactory;
 
     @Override
     public void initWithNiwsConfig(IClientConfig iClientConfig) {
@@ -32,10 +34,24 @@ public class DynamicLoadBalancerRule extends AbstractLoadBalancerRule {
 
     @Override
     public Server choose(Object key) {
-        BalanceRequestInfo balanceRequestInfo = (BalanceRequestInfo) key;
         // 如果请求 Header 中含有 Nacos 服务的集群标志，路由到指定的 Nacos 服务集群
-        List<Server> reachableServers = getLoadBalancer().getReachableServers();
+        BalanceRequestInfo balanceRequestInfo = (BalanceRequestInfo) key;
+//        List<Server> reachableServers = getLoadBalancer().getReachableServers();
+        List<Server> reachableServers = springClientFactory
+                .getLoadBalancer(balanceRequestInfo.getServiceId())
+                .getReachableServers();
         List<Instance> instances = new ArrayList<>();
+
+        String targetCluster = balanceRequestInfo.getTargetCluster();
+
+        for (Server server : reachableServers) {
+            if (server instanceof NacosServer) {
+                NacosServer nacosServer = (NacosServer) server;
+                if (targetCluster.equals(nacosServer.getInstance().getClusterName())) {
+                    instances.add(nacosServer.getInstance());
+                }
+            }
+        }
 
         Instance instance;
         return (instance = ExtendBalancer.getHostByRandomWeight2(instances)) != null ? new NacosServer(instance) : null;
