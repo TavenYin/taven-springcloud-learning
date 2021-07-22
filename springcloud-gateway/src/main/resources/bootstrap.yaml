@@ -12,6 +12,14 @@ spring:
       discovery:
         server-addr: 127.0.0.1:8848
 
+    gateway:
+      routes:
+        - id: add_request_header_route
+          uri: https://httpbin.org/get
+          predicates:
+            - Path=/get
+          filters:
+            - AddRequestHeader=X-Request-Red, Blue
 
 dynamic-route:
   enable: false
