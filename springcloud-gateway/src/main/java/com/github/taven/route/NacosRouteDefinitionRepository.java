@@ -7,6 +7,7 @@ import com.alibaba.nacos.api.config.listener.Listener;
 import com.alibaba.nacos.api.exception.NacosException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.gateway.event.RefreshRoutesEvent;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionRepository;
@@ -25,6 +26,7 @@ import java.util.concurrent.Executor;
  * 原理：监听 Nacos 配置，发生变化时，发布 RefreshRoutesEvent 让 Spring Cloud 更新路由
  */
 @Component
+@ConditionalOnProperty(name = "dynamic-route.enable", havingValue = "true")
 public class NacosRouteDefinitionRepository implements RouteDefinitionRepository {
     private final NacosConfigManager nacosConfigManager;
     private List<RouteDefinition> routeDefinitions;

@@ -1,3 +1,6 @@
+server:
+  port: 8001
+
 spring:
   application:
     name: gateway-demo
@@ -6,9 +9,10 @@ spring:
       config:
         server-addr: 127.0.0.1:8848
         file-extension: yaml
-        group: gateway-demo
       discovery:
         server-addr: 127.0.0.1:8848
 
+
 dynamic-route:
+  enable: false
   dataId: gateway-route
