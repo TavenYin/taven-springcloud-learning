@@ -32,10 +32,21 @@
             <artifactId>sentinel-cluster-client-default</artifactId>
             <version>${sentinel.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-cluster-server-default</artifactId>
+            <version>${sentinel.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-datasource-nacos</artifactId>
+            <version>${sentinel.version}</version>
+        </dependency>
+
+        <!-- 热点参数限流 -->
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-parameter-flow-control</artifactId>
             <version>${sentinel.version}</version>
         </dependency>
     </dependencies>

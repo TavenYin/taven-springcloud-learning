@@ -32,6 +32,9 @@
 /springcloud-alibaba-nacos/nacos-config/target
 
 /sentinel-example/target
+/sentinel-cluster-server/target
 
 /springcloud-gateway-guides/target
 /springcloud-gateway/target
+
+/jaeger/target

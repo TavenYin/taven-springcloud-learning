@@ -2,7 +2,7 @@ package com.github.taven.balance;
 
 public class BalanceRequestInfo {
     private String serviceId;
-    private String nacosServiceCluster;
+    private String targetCluster;
 
     public String getServiceId() {
         return serviceId;
@@ -12,11 +12,11 @@ public class BalanceRequestInfo {
         this.serviceId = serviceId;
     }
 
-    public String getNacosServiceCluster() {
-        return nacosServiceCluster;
+    public String getTargetCluster() {
+        return targetCluster;
     }
 
-    public void setNacosServiceCluster(String nacosServiceCluster) {
-        this.nacosServiceCluster = nacosServiceCluster;
+    public void setTargetCluster(String targetCluster) {
+        this.targetCluster = targetCluster;
     }
 }

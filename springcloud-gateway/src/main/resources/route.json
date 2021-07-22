@@ -1,0 +1,17 @@
+[
+  {
+    "predicates": [
+      {
+        "args": {
+          "p1": "/echo/get",
+          "p2": "/echo/post"
+        },
+        "name": "Path"
+      }
+    ],
+    "filters": [],
+    "id": "taven-demo",
+    "uri": "lb://service-provider",
+    "order": 1
+  }
+]

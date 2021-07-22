@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 @SpringBootApplication
 @EnableDiscoveryClient
 public class NacosProviderApplication {
@@ -19,7 +21,7 @@ public class NacosProviderApplication {
     @RestController
     class EchoController {
         @RequestMapping(value = "/echo/{string}", method = RequestMethod.GET)
-        public String echo(@PathVariable String string) {
+        public String echo(@PathVariable String string, HttpServletRequest request) {
             return "Hello Nacos Discovery " + string;
         }
     }
