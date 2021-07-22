@@ -35,7 +35,7 @@ public class NacosRouteDefinitionRepository implements RouteDefinitionRepository
                                           ApplicationEventPublisher publisher,
                                           Environment env) {
         nacosConfigManager = new NacosConfigManager(nacosConfig);
-        routeDataId = env.getProperty("route.dataId");
+        routeDataId = env.getProperty("dynamic-route.dataId");
         initRouting(nacosConfig);
         addListener(nacosConfig, publisher);
     }

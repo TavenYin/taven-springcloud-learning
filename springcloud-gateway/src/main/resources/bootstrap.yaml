@@ -8,5 +8,5 @@ spring:
         file-extension: yaml
         group: gateway-demo
 
-route:
+dynamic-route:
   dataId: gateway-route
