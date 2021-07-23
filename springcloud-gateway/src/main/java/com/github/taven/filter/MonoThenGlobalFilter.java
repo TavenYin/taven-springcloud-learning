@@ -1,20 +1,28 @@
 package com.github.taven.filter;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
+import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-public class MyGlobalFilter implements GlobalFilter, Ordered {
+/**
+ * @author tianwen.yin
+ */
+@Component
+@Slf4j
+public class MonoThenGlobalFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        exchange.getRequest().getHeaders().toSingleValueMap();
-        return null;
+        log.info("before routing");
+        return chain.filter(exchange)
+                .then(Mono.fromRunnable(() -> log.info("after routing")));
     }
 
     @Override
     public int getOrder() {
-        return 0;
+        return -2;
     }
 }
