@@ -20,7 +20,11 @@ spring:
             - Path=/get
           filters:
             - AddRequestHeader=X-Request-Red, Blue
+  redis:
+    host: localhost
+    port: 6379
+    password:
 
 dynamic-route:
-  enable: false
+  enable: true
   dataId: gateway-route
