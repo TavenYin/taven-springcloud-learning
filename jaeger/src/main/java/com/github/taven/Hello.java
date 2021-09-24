@@ -31,6 +31,19 @@ public class Hello {
         // 增加Logs信息
         span.log(ImmutableMap.of("event", "println"));
 
+        innerSpan(span);
+
+        span.finish();
+
+        System.out.println("Trace Id: " + span.context().toTraceId());
+    }
+
+    private void innerSpan(Span parent) {
+        Span span = tracer.buildSpan("inner-span")
+                .asChildOf(parent)
+                .start();
+        span.setTag("inner", "inner value");
+        span.log("inner event");
         span.finish();
     }
 
