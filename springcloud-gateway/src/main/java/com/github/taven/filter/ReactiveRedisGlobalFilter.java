@@ -30,7 +30,7 @@ public class ReactiveRedisGlobalFilter implements GlobalFilter, Ordered {
                     if (value.equals("error")) {
                         return Mono.error(new RuntimeException("error"));
                     }
-                    return Mono.just(value);
+                    return Mono.empty();
                 })
                 .publishOn(SpringReactiveUtils.reactorHttpNioScheduler())
                 .then(chain.filter(exchange));
