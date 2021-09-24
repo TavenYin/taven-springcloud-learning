@@ -38,3 +38,5 @@
 /springcloud-gateway/target
 
 /jaeger/target
+/jaeger-mutilserver/order-server/target
+/jaeger-mutilserver/product-server/target
