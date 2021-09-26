@@ -6,10 +6,10 @@ import org.springframework.http.HttpHeaders;
 import java.util.Iterator;
 import java.util.Map;
 
-public class SpringHttpHeadersCarrier implements TextMap {
+public class HttpHeadersCarrier implements TextMap {
     private final HttpHeaders httpHeaders;
 
-    public SpringHttpHeadersCarrier(HttpHeaders httpHeaders)  {
+    public HttpHeadersCarrier(HttpHeaders httpHeaders)  {
         this.httpHeaders = httpHeaders;
     }
 

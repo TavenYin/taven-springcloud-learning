@@ -5,7 +5,6 @@ import io.opentracing.Span;
 import io.opentracing.Tracer;
 import io.opentracing.propagation.Format;
 import io.opentracing.tag.Tags;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
@@ -50,7 +49,7 @@ public class TracingRestTemplateConfiguration {
                     .start();
             // 将当前 SpanContext 注入到 HttpHeaders
             tracer.inject(span.context(), Format.Builtin.HTTP_HEADERS,
-                    new SpringHttpHeadersCarrier(request.getHeaders()));
+                    new HttpHeadersCarrier(request.getHeaders()));
 
             try (Scope scope = tracer.activateSpan(span)) {
                 httpResponse = execution.execute(request, body);
