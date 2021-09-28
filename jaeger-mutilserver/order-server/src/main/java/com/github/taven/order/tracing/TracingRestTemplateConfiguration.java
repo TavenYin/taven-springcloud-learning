@@ -13,7 +13,9 @@ import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Configuration
 public class TracingRestTemplateConfiguration {
@@ -53,6 +55,13 @@ public class TracingRestTemplateConfiguration {
 
             try (Scope scope = tracer.activateSpan(span)) {
                 httpResponse = execution.execute(request, body);
+            } catch (Exception ex) {
+                Tags.ERROR.set(span, Boolean.TRUE);
+                Map<String, Object> errorLogs = new HashMap<>(2);
+                errorLogs.put("event", Tags.ERROR.getKey());
+                errorLogs.put("error.object", ex);
+                span.log(errorLogs);
+                throw ex;
             } finally {
                 span.finish();
             }
