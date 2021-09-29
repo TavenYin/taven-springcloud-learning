@@ -18,6 +18,8 @@ import java.io.IOException;
  * @author tianwen.yin
  */
 public class TracingRestTemplateInterceptor implements ClientHttpRequestInterceptor {
+    private static final String SPAN_URI = "uri";
+
     private final Tracer tracer;
 
     public TracingRestTemplateInterceptor(Tracer tracer) {
@@ -30,6 +32,7 @@ public class TracingRestTemplateInterceptor implements ClientHttpRequestIntercep
         // 为当前 RestTemplate 调用，创建一个 Span
         Span span = tracer.buildSpan("RestTemplate-RPC")
                 .withTag(Tags.SPAN_KIND.getKey(), Tags.SPAN_KIND_CLIENT)
+                .withTag(SPAN_URI, request.getURI().toString())
                 .start();
         // 将当前 SpanContext 注入到 HttpHeaders
         tracer.inject(span.context(), Format.Builtin.HTTP_HEADERS,
