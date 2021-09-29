@@ -1,14 +1,18 @@
-package com.github.taven.order.tracing;
+package com.github.taven.tracing.config;
 
 import io.jaegertracing.Configuration;
-import io.jaegertracing.Configuration.SenderConfiguration;
-import io.jaegertracing.Configuration.SamplerConfiguration;
 import io.jaegertracing.Configuration.ReporterConfiguration;
+import io.jaegertracing.Configuration.SamplerConfiguration;
+import io.jaegertracing.Configuration.SenderConfiguration;
 import io.opentracing.Tracer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 
 @org.springframework.context.annotation.Configuration
 public class TracerConfiguration {
+
+    @Value("${spring.application.name}")
+    private String applicationName;
 
     @Bean
     public Tracer getTracer() {
@@ -28,7 +32,7 @@ public class TracerConfiguration {
                         .withSender(senderConfiguration)
                         .withLogSpans(true);
 
-        return new Configuration("orderServer")
+        return new Configuration(applicationName)
                 .withReporter(reporterConfig)
                 .withSampler(samplerConfig)
                 .getTracerBuilder()

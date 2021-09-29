@@ -1,7 +1,8 @@
-package com.github.taven.order.log;
+package com.github.taven.tracing.config;
 
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
+import com.github.taven.tracing.log.SpanLogsAppender;
 import io.opentracing.Tracer;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

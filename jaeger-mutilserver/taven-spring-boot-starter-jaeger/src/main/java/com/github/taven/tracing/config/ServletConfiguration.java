@@ -1,5 +1,6 @@
-package com.github.taven.product.filter;
+package com.github.taven.tracing.config;
 
+import com.github.taven.tracing.web.TracingFilter;
 import io.opentracing.Tracer;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

@@ -1,4 +1,4 @@
-package com.github.taven.order.tracing;
+package com.github.taven.tracing;
 
 import io.opentracing.propagation.TextMap;
 import org.springframework.http.HttpHeaders;
