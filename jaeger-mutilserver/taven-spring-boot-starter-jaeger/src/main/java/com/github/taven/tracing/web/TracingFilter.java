@@ -38,7 +38,7 @@ public class TracingFilter implements Filter {
                 .withTag(Tags.SPAN_KIND.getKey(), Tags.SPAN_KIND_SERVER)
                 .start();
 
-        httpResponse.setHeader("traceId", span.context().toTraceId());
+        httpResponse.setHeader("TraceId", span.context().toTraceId());
 
         try (Scope scope = tracer.activateSpan(span)) {
             filterChain.doFilter(servletRequest, servletResponse);
