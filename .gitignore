@@ -40,3 +40,4 @@
 /jaeger/target
 /jaeger-mutilserver/order-server/target
 /jaeger-mutilserver/product-server/target
+/jaeger-mutilserver/taven-spring-boot-starter-jaeger/target

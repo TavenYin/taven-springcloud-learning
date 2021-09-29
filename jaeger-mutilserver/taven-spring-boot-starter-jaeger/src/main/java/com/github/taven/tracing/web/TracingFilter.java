@@ -1,6 +1,7 @@
-package com.github.taven.product.filter;
+package com.github.taven.tracing.web;
 
-import com.github.taven.product.tracing.HttpServletRequestExtractAdapter;
+import com.github.taven.tracing.HttpServletRequestExtractAdapter;
+import com.github.taven.tracing.common.TracingError;
 import io.opentracing.Scope;
 import io.opentracing.Span;
 import io.opentracing.SpanContext;
@@ -37,8 +38,13 @@ public class TracingFilter implements Filter {
                 .withTag(Tags.SPAN_KIND.getKey(), Tags.SPAN_KIND_SERVER)
                 .start();
 
+        httpResponse.setHeader("traceId", span.context().toTraceId());
+
         try (Scope scope = tracer.activateSpan(span)) {
             filterChain.doFilter(servletRequest, servletResponse);
+        } catch (Exception ex) {
+            TracingError.handle(span, ex);
+            throw ex;
         } finally {
             addAsyncListenerIfNecessary(httpRequest, span);
             span.finish();

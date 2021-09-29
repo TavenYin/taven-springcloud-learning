@@ -1,9 +1,12 @@
-package com.github.taven.product.tracing;
+package com.github.taven.tracing;
 
 import io.opentracing.propagation.TextMap;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.Enumeration;
+import java.util.IdentityHashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * @author tianwen.yin

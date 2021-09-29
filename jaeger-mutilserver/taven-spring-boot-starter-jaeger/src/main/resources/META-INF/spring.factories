@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.github.taven.tracing.config.TracerConfiguration,\
+com.github.taven.tracing.config.LoggingAutoConfiguration,\
+com.github.taven.tracing.config.ServletConfiguration,\
+com.github.taven.tracing.config.TracingRestTemplateConfiguration
