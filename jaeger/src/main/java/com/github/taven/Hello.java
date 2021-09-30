@@ -22,6 +22,7 @@ public class Hello {
         Span span = tracer.buildSpan("say-hello").start();
         // 增加Tags信息
         span.setTag("hello-to", helloTo);
+        span.setBaggageItem("item", "item");
 
         String helloStr = String.format("Hello, %s!", helloTo);
         // 增加Logs信息
@@ -45,6 +46,7 @@ public class Hello {
         span.setTag("inner", "inner value");
         span.log("inner event");
         span.finish();
+        System.out.println(span.getBaggageItem("item"));
     }
 
     public static void main(String[] args) {
