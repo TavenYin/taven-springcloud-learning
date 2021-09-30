@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public class TracingError {
 
-    public static void handle(Span span, Exception ex) {
+    public static void handle(Span span, Throwable ex) {
         Tags.ERROR.set(span, Boolean.TRUE);
         Map<String, Object> errorLogs = new HashMap<>(2);
         errorLogs.put("event", Tags.ERROR.getKey());

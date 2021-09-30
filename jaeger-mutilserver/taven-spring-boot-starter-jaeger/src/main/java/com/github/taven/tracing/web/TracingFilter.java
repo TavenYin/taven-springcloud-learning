@@ -46,36 +46,38 @@ public class TracingFilter implements Filter {
             TracingError.handle(span, ex);
             throw ex;
         } finally {
-            addAsyncListenerIfNecessary(httpRequest, span);
-            span.finish();
+            if (httpRequest.isAsyncStarted()) {
+                addAsyncListener(httpRequest, span);
+            } else {
+                span.finish();
+            }
         }
     }
 
-    private void addAsyncListenerIfNecessary(HttpServletRequest httpRequest, Span span) {
-        if (httpRequest.isAsyncStarted()) {
-            httpRequest.getAsyncContext()
-                    .addListener(new AsyncListener() {
-                        @Override
-                        public void onComplete(AsyncEvent asyncEvent) throws IOException {
-                            span.finish();
-                        }
+    private void addAsyncListener(HttpServletRequest httpRequest, Span span) {
+        httpRequest.getAsyncContext()
+                .addListener(new AsyncListener() {
+                    @Override
+                    public void onComplete(AsyncEvent asyncEvent) throws IOException {
+                        span.finish();
+                    }
 
-                        @Override
-                        public void onTimeout(AsyncEvent asyncEvent) throws IOException {
+                    @Override
+                    public void onTimeout(AsyncEvent asyncEvent) throws IOException {
 
-                        }
+                    }
 
-                        @Override
-                        public void onError(AsyncEvent asyncEvent) throws IOException {
+                    @Override
+                    public void onError(AsyncEvent asyncEvent) throws IOException {
+                        Throwable throwable = asyncEvent.getThrowable();
+                        TracingError.handle(span, throwable);
+                    }
 
-                        }
+                    @Override
+                    public void onStartAsync(AsyncEvent asyncEvent) throws IOException {
 
-                        @Override
-                        public void onStartAsync(AsyncEvent asyncEvent) throws IOException {
-
-                        }
-                    });
-        }
+                    }
+                });
     }
 
 }
