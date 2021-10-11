@@ -29,3 +29,5 @@ cd taven-spring-boot-starter-jaeger
 mvn clean install
 ```
 或者 直接在 IDE maven 菜单中添加该工程（这种方式更方便调试）
+
+3. 链路 TraceId 可以在 Http ResponseHeader 中看到
