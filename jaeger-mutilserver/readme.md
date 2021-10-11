@@ -20,10 +20,12 @@
 
 ### 食用指南
 
-1. 编译 taven-spring-boot-starter-jaeger
+1. 将 jaeger-mutilserver 导入 IDEA
+
+2. 编译 taven-spring-boot-starter-jaeger
 
 ```shell
+cd taven-spring-boot-starter-jaeger
 mvn clean install
 ```
-
-2. 将 jaeger-mutilserver 导入 IDEA
+或者 直接在 IDE maven 菜单中添加该工程（这种方式更方便调试）
