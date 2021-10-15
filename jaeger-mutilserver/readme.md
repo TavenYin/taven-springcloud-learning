@@ -20,10 +20,14 @@
 
 ### 食用指南
 
-1. 编译 taven-spring-boot-starter-jaeger
+1. 将 jaeger-mutilserver 导入 IDEA
+
+2. 编译 taven-spring-boot-starter-jaeger
 
 ```shell
+cd taven-spring-boot-starter-jaeger
 mvn clean install
 ```
+或者 直接在 IDE maven 菜单中添加该工程（这种方式更方便调试）
 
-2. 将 jaeger-mutilserver 导入 IDEA
+3. 链路 TraceId 可以在 Http ResponseHeader 中看到
