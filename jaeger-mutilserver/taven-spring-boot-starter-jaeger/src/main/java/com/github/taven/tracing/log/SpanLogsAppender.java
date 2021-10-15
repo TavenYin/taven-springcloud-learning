@@ -1,8 +1,17 @@
 package com.github.taven.tracing.log;
 
+import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.classic.spi.IThrowableProxy;
+import ch.qos.logback.classic.spi.ThrowableProxy;
 import ch.qos.logback.core.UnsynchronizedAppenderBase;
+import io.opentracing.Span;
 import io.opentracing.Tracer;
+import io.opentracing.tag.Tags;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class SpanLogsAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
     private final Tracer tracer;
@@ -13,7 +22,28 @@ public class SpanLogsAppender extends UnsynchronizedAppenderBase<ILoggingEvent> 
     }
 
     @Override
-    protected void append(ILoggingEvent iLoggingEvent) {
+    protected void append(ILoggingEvent event) {
+        Span span = tracer.activeSpan();
+        if (span != null) {
+            Map<String, Object> logs = new HashMap<>(6);
+            logs.put("logger", event.getLoggerName());
+            logs.put("level", event.getLevel().toString());
+            logs.put("thread", event.getThreadName());
+            logs.put("message", event.getFormattedMessage());
 
+            if (Level.ERROR.equals(event.getLevel())) {
+                logs.put("event", Tags.ERROR);
+            }
+
+            IThrowableProxy throwableProxy = event.getThrowableProxy();
+            if (throwableProxy instanceof ThrowableProxy) {
+                Throwable throwable = ((ThrowableProxy)throwableProxy).getThrowable();
+                // String stackTrace = ThrowableProxyUtil.asString(throwableProxy);
+                if (throwable != null) {
+                    logs.put("error.object", throwable);
+                }
+            }
+            span.log(TimeUnit.MICROSECONDS.convert(event.getTimeStamp(), TimeUnit.MILLISECONDS), logs);
+        }
     }
 }
