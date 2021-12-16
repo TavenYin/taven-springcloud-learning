@@ -43,3 +43,5 @@
 /jaeger-mutilserver/taven-spring-boot-starter-jaeger/target
 
 /springcloud-restTemplate/target
+
+/springcloud-websocket/target
