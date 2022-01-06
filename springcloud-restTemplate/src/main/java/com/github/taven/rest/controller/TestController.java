@@ -16,8 +16,6 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @Slf4j
 public class TestController {
-    @Resource(name = "customCloudRestTemplate")
-    private RestTemplate customCloudRestTemplate;
 
     @Resource(name = "customTimeoutRestTemplate")
     private RestTemplate customTimeoutRestTemplate;
@@ -37,13 +35,6 @@ public class TestController {
 
     @GetMapping("custom/setTimeout")
     public String customSetTimeout() {
-        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(7000).build();
-        RequestConfigHolder.bind(requestConfig);
-        return customTimeoutRestTemplate.getForObject("http://localhost:8080/slowRequest", String.class);
-    }
-
-    @GetMapping("cloud/setTimeout")
-    public String cloudSetTimeout() {
         RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(7000).build();
         RequestConfigHolder.bind(requestConfig);
         return customTimeoutRestTemplate.getForObject("http://localhost:8080/slowRequest", String.class);

@@ -14,17 +14,6 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class RestTemplateConfiguration {
 
-    @Bean("customCloudRestTemplate")
-    @LoadBalanced
-    public RestTemplate customCloudRestTemplate() {
-        RestTemplate restTemplate = new RestTemplate();
-        HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
-        requestFactory.setHttpContextFactory(new CustomHttpContextFactory());
-        requestFactory.setReadTimeout(3000);
-        restTemplate.setRequestFactory(requestFactory);
-        return restTemplate;
-    }
-
     @Bean("customTimeoutRestTemplate")
     public RestTemplate customTimeout() {
         RestTemplate restTemplate = new RestTemplate();
