@@ -12,15 +12,15 @@
         <module>nacos-discovery</module>
         <module>nacos-provider</module>
         <module>nacos-config</module>
-        <module>alibaba-sidecar</module>
     </modules>
 
     <properties>
-        <spring-boot.version>2.2.13.RELEASE</spring-boot.version>
-        <spring-cloud.version>Hoxton.SR5</spring-cloud.version>
+        <spring-boot.version>2.3.2.RELEASE</spring-boot.version>
+        <spring-cloud.version>Hoxton.SR9</spring-cloud.version>
         <spring-cloud-alibaba.version>2.2.6.RELEASE</spring-cloud-alibaba.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <nacos-client.version>1.4.1</nacos-client.version>
     </properties>
 
     <dependencyManagement>
@@ -46,21 +46,10 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!-- springcloud alibaba 这几个依赖，Spring 和 alibaba版本不同 -->
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-                <version>0.2.2.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-                <version>0.2.2.RELEASE</version>
-            </dependency>
             <dependency>
                 <groupId>com.alibaba.nacos</groupId>
                 <artifactId>nacos-client</artifactId>
-                <version>2.0.1</version>
+                <version>${nacos-client.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
