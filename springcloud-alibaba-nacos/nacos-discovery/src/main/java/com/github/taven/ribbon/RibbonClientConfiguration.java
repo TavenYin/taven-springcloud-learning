@@ -11,8 +11,9 @@ import org.springframework.context.annotation.Configuration;
 /**
  * @author tianwen.yin
  */
-@Configuration
-@RibbonClients(defaultConfiguration = DefaultRibbonConfig.class)
+// 解开注释，会替换 Ribbon 的默认Bean
+//@Configuration
+//@RibbonClients(defaultConfiguration = DefaultRibbonConfig.class)
 public class RibbonClientConfiguration {
 
 }
