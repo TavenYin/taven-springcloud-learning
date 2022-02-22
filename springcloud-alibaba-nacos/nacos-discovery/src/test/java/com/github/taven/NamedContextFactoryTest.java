@@ -32,11 +32,12 @@ public class NamedContextFactoryTest {
     public void test() {
         // 创建 parent context
         AnnotationConfigApplicationContext parent = new AnnotationConfigApplicationContext();
+        // parent context 的 Bean，可以被子容器继承
         parent.register(ParentConfiguration.class);
         initEnv(parent);
         parent.refresh();
 
-        // name = baidu 的 context 中会注册 TestConfiguration
+        // 容器 name = baidu 的 context 中会注册 TestConfiguration
         NamedHttpClientSpec spec = new NamedHttpClientSpec("baidu", new Class[]{TestConfiguration.class});
 
         NamedHttpClientFactory namedHttpClientFactory = new NamedHttpClientFactory();
@@ -45,14 +46,20 @@ public class NamedContextFactoryTest {
         namedHttpClientFactory.setConfigurations(List.of(spec));
 
         // 准备工作完成，现在开始通过 NamedContextFactory get Bean
+        ParentBean baiduParentBean = namedHttpClientFactory.getInstance("baidu", ParentBean.class);
         NamedHttpClient baidu = namedHttpClientFactory.getInstance("baidu", NamedHttpClient.class);
         TestBean baiduTestBean = namedHttpClientFactory.getInstance("baidu", TestBean.class);
+
+        Assert.assertNotNull(baiduParentBean);
         Assert.assertEquals("baidu", baidu.getServiceName());
         Assert.assertEquals(123, baidu.getRequestConfig().getSocketTimeout());
         Assert.assertNotNull(baiduTestBean);
 
+        ParentBean googleParentBean = namedHttpClientFactory.getInstance("google", ParentBean.class);
         NamedHttpClient google = namedHttpClientFactory.getInstance("google", NamedHttpClient.class);
         TestBean googleTestBean = namedHttpClientFactory.getInstance("google", TestBean.class);
+
+        Assert.assertNotNull(googleParentBean);
         Assert.assertEquals("google", google.getServiceName());
         Assert.assertEquals(456, google.getRequestConfig().getSocketTimeout());
         Assert.assertNull(googleTestBean);
