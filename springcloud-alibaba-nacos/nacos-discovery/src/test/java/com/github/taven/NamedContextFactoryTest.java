@@ -65,7 +65,6 @@ public class NamedContextFactoryTest {
         Assert.assertNull(googleTestBean);
     }
 
-    @Configuration
     static class ParentConfiguration {
         @Bean
         public ParentBean parentBean() {
@@ -73,7 +72,6 @@ public class NamedContextFactoryTest {
         }
     }
 
-    @Configuration
     static class TestConfiguration {
         @Bean
         public TestBean testBean() {
