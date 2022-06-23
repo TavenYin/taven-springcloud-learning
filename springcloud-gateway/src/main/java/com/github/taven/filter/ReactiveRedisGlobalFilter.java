@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.function.Function;
 
-@Component
+//@Component
 public class ReactiveRedisGlobalFilter implements GlobalFilter, Ordered {
     private ReactiveRedisTemplate<String, String> reactiveRedisTemplate;
 

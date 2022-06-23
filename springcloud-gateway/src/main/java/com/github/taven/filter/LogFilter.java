@@ -8,21 +8,17 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-/**
- * @author tianwen.yin
- */
-//@Component
 @Slf4j
-public class MonoThenGlobalFilter implements GlobalFilter, Ordered {
+@Component
+public class LogFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        log.info("before routing");
-        return chain.filter(exchange)
-                .then(Mono.fromRunnable(() -> log.info("after routing")));
+        log.info("hello");
+        return chain.filter(exchange);
     }
 
     @Override
     public int getOrder() {
-        return -2;
+        return -9;
     }
 }

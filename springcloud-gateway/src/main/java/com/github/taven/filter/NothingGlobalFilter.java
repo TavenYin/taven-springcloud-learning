@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
  * @author tianwen.yin
  */
 @Slf4j
-@Component
+//@Component
 public class NothingGlobalFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
